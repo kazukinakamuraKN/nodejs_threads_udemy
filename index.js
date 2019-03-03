@@ -1,3 +1,4 @@
+process.env.UV_THREADPOOL_SIZE = 1
 const cluster = require('cluster')
 
 // Is the file being executed in master mode?
@@ -9,28 +10,18 @@ if (cluster.isMaster) {
   cluster.fork()
   cluster.fork()
   cluster.fork()
-  cluster.fork()
-  cluster.fork()
-  cluster.fork()
-  cluster.fork()
-  cluster.fork()
-  cluster.fork()
-  cluster.fork()
-  cluster.fork()
 } else {
   // Im a child, Im going to act like a server
   // and do nothing else
   const express = require('express')
+  const crypto = requir('crypto')
   const app = express()
-
-  dowork = (duration) => {
-    const start = Date.now()
-    while (Date.now() - start < duration) { }
-  }
+  const Worker = require('webworker-threads').Worker
 
   app.get('/', (req, res) => {
-    dowork(5000)
-    res.send('Hi')
+    crypto.pbkdf2('a', 'b', 100000, 512, 'sha512', () => {
+      res.send('Hi')
+    });
   })
 
   app.get('/fast', (req, res) => {

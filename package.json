@@ -17,6 +17,7 @@
   },
   "homepage": "https://github.com/kazukinakamuraKN/nodejs_threads_udemy#readme",
   "dependencies": {
-    "express": "^4.16.4"
+    "express": "^4.16.4",
+    "webworker-threads": "^0.7.17"
   }
 }
